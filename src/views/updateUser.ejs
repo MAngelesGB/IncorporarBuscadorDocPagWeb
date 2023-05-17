@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href=/assets/style.css type=text/css rel=stylesheet />
+    <title>Editar usuario</title>
+</head>
+<body>
+    <!-- Formulario utilizado para recuperar informacion de los usuarios -->
+    <h1>Actualizar usuario</h1>
+    <form action="/updateUser" method="post">
+        <!--Se utiliza myUser, que es quien trae la informacion del documento que se quiere actualizar -->
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" value="<%= `${myUser.name}` %>"><br><br>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" value="<%= `${myUser.email}` %>"><br><br>
+
+        <label for="password">Clave:</label>
+        <input type="text" id="password" name="password" value="<%= `${myUser.password}` %>"><br><br>
+
+        <label for="id">Id:</label>
+        <input type="text" id="objId" name="objId" value="<%= `${myUser._id}` %>"><br><br> <!-- Se agrega el id como 'objId' -->
+
+        <input type="submit" value="Actualizar" class="button">
+    </form>
+</body>
+</html>

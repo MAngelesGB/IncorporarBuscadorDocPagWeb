@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href=/assets/style.css type=text/css rel=stylesheet />
+    <title>Usuarios</title>
+</head>
+<body>
+<!-- Formulario para realizar busquedas  -->
+    <div id="busqueda">
+        <form action="/find" method="post" id="busqueda">
+            <label for="nombre" id="nombrelabel">Nombre:</label>
+            <input type="text" id="nombre" name="nombre">
+            <input type="submit" value="Buscar" id="buttonBuscar">
+        </form>
+    </div>
+
+<!--Tabla con el contenido de la coleccion de MongoDB-->
+    <div id="titulo">
+        <p>Catalogo de usuarios</p>
+    </div>
+    <div id="main-container">
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Clave</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <% Object.keys(Users).forEach(function(prop) { %>
+                <tr>
+                    <td><%= Users[prop].name %></td>
+                    <td><%= Users[prop].email %></td>
+                    <td><%= Users[prop].password %></td>
+                    <!-- Se redirecciona hacia la vista que permite editar el documento de la coleccion-->
+                    <!-- Se usan dos cosas: la ruta y el parametro para buscar el documento de la coleccion y 
+                    mostrarlo en el documento para su edicion -->
+                    <td><a href="<%= `findById/${Users[prop]._id}` %>">Editar</a></td> <!--Editar-->
+                    <!-- Se agrega el evento onclick y retorna el resultado de la funcion -->
+                    <td><a href="<%= `deleteUser/${Users[prop]._id}` %>" onclick="return confirmar()" class="delete">Borrar</a></td> <!--Eliminar-->
+                </tr>
+        <%});%>
+        </table>
+    </div>
+
+    <!-- Agregar Usuario -->
+    <div id="agregarUsuario">
+        <a href="addUser">Agregar</a> <!-- ruta al formulario (endpoint) -->
+    </div>
+
+    <!--Script Js para mostrar una alerta de confirmacion para eliminar un doc de la coleccion de mongodb-->
+    <script type="text/javascript">
+        function confirmar() 
+        {
+            let eliminar = confirm('¿Deseas eliminar este registro?'); // Mensaje que regresa valores booleanos
+            if(eliminar) // true
+                return true; // regresa true
+            else // de lo contrario
+                return false; // regresa false
+        }
+    </script>
+</body>
+</html>
